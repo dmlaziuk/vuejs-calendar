@@ -1,10 +1,10 @@
-const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpack = require("webpack");
-const webpackConfig = require('./webpack.config.js').find(item => item.target === 'web');
-const compiler = webpack(webpackConfig);
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpack = require('webpack')
+const webpackConfig = require('./webpack.config.js').find(item => item.target === 'web')
+const compiler = webpack(webpackConfig)
 
 module.exports = {
-  init(app) {
+  init (app) {
     app.use(webpackDevMiddleware(compiler, {
       hot: true,
       stats: {
@@ -12,13 +12,13 @@ module.exports = {
       },
       historyApiFallback: true,
       publicPath: webpackConfig.output.publicPath,
-      filename: webpackConfig.output.filename,
-    }));
+      filename: webpackConfig.output.filename
+    }))
 
-    app.use(require("webpack-hot-middleware")(compiler, {
+    app.use(require('webpack-hot-middleware')(compiler, {
       log: console.log,
       path: '/__webpack_hmr',
-      heartbeat: 10 * 1000,
-    }));
+      heartbeat: 10 * 1000
+    }))
   }
-};
+}
