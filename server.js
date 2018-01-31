@@ -16,12 +16,24 @@ let events = [
   { description: 'Event 3', date: moment() }
 ]
 
+let renderer
+
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
   let template = fs.readFileSync(path.resolve('./index.html'), 'utf-8')
   let marker = '<!--APP-->'
-  res.send(template.replace(marker, `<script>var __INIT__ = ${serialize(events)}</script>`))
+  if (renderer) {
+    renderer.renderToString({}, (err, html) => {
+      if (err) {
+        console.log(err)
+      } else {
+        res.send(template.replace(marker, `<script>var __EVENTS__ = ${serialize(events)}</script>\n${html}`))
+      }
+    })
+  } else {
+    res.send('<p>Awaiting compilation...</p>')
+  }
 })
 
 app.use(require('body-parser').json())
@@ -36,6 +48,9 @@ if (process.env.NODE_ENV === 'development') {
   const reload = require('reload')
   const reloadServer = reload(server, app)
   require('./webpack-dev-middleware').init(app)
+  require('./webpack-server-compiler').init((bundle) => {
+    let renderer = require('vue-server-renderer').createBundleRenderer(bundle)
+  })
 }
 
 server.listen(process.env.PORT, function () {

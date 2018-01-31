@@ -1,8 +1,14 @@
 import './style.scss'
-import Vue from 'vue'
-import App from './components/App.vue'
+import moment from 'moment-timezone'
+import AppEntry from './entry'
 
-export default new Vue({
-  el: '#app',
-  ...App
+moment.tz.setDefault('UTC')
+
+let events = window.__EVENTS__.map(event => {
+  return {
+    description: event.description,
+    date: moment(event.date)
+  }
 })
+
+AppEntry(events).$mount('#app')
