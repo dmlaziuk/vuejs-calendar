@@ -57,8 +57,5 @@ export default {
     }
   },
   components: { CalendarDay },
-  created () {
-    console.log(this.$root.moment)
-  }
 }
 </script>
