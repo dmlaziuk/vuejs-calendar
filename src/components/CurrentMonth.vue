@@ -10,18 +10,18 @@
 import moment from 'moment-timezone'
 export default {
   computed: {
-    formattedDate () {
+    formattedDate() {
       return moment(`${this.year}-${this.month}-1`, 'YYYY-M-D').format('MMMM YYYY')
     },
-    year () {
+    year() {
       return this.$store.state.currentYear
     },
-    month () {
+    month() {
       return this.$store.state.currentMonth
     }
   },
   methods: {
-    inc () {
+    inc() {
       if (this.month === 12) {
         this.$store.commit('setCurrentMonth', 1)
         this.$store.commit('setCurrentYear', this.year + 1)
@@ -30,7 +30,7 @@ export default {
       }
       this.$store.commit('eventFormActive', false)
     },
-    dec () {
+    dec() {
       if (this.month === 1) {
         this.$store.commit('setCurrentMonth', 12)
         this.$store.commit('setCurrentYear', this.year - 1)

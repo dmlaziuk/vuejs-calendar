@@ -1,5 +1,5 @@
 import AppEntry from './entry'
 
-export default () => {
-  return AppEntry([])
+export default (context) => {
+  return AppEntry(context.events)
 }
