@@ -49,10 +49,10 @@ if (process.env.NODE_ENV === 'development') {
   const reloadServer = reload(server, app)
   require('./webpack-dev-middleware').init(app)
   require('./webpack-server-compiler').init((bundle) => {
-    let renderer = require('vue-server-renderer').createBundleRenderer(bundle)
+    renderer = require('vue-server-renderer').createBundleRenderer(bundle)
   })
 }
 
-server.listen(process.env.PORT, function () {
+server.listen(process.env.PORT, () => {
   console.log(`Example app listening on port ${process.env.PORT}!`)
 })
