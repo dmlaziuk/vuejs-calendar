@@ -13,13 +13,13 @@ import CalendarDay from './CalendarDay.vue'
 
 export default {
   computed: {
-    year() {
+    year () {
       return this.$store.state.currentYear
     },
-    month() {
+    month () {
       return this.$store.state.currentMonth
     },
-    days() {
+    days () {
       let days = []
       let currentDay = moment(`${this.year}-${this.month}-1`, 'YYYY-M-D')
       // Adding all days in current month
@@ -43,7 +43,7 @@ export default {
       }
       return days
     },
-    weeks() {
+    weeks () {
       let weeks = []
       let week = []
       for (let day of this.days) {

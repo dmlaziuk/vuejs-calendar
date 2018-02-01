@@ -20,21 +20,21 @@ export default {
     }
   },
   computed: {
-    active() {
+    active () {
       return this.$store.state.eventFormActive
     },
-    top() {
+    top () {
       return `${this.$store.state.eventFormPosY}px`
     },
-    left() {
+    left () {
       return `${this.$store.state.eventFormPosX}px`
     },
-    date() {
+    date () {
       return this.$store.state.eventFormDate
     }
   },
   methods: {
-    create() {
+    create () {
       if (this.description.length > 0) {
         this.$store.dispatch('addEvent', this.description).then(() => {
           this.description = ''
@@ -42,13 +42,13 @@ export default {
         })
       }
     },
-    close() {
+    close () {
       this.$store.commit('eventFormActive', false)
     }
   },
   directives: {
     focus: {
-      update(el) {
+      update (el) {
         el.focus()
       }
     }

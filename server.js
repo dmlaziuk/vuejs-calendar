@@ -10,13 +10,15 @@ const serialize = require('serialize-javascript')
 
 moment.tz.setDefault('UTC')
 
+let renderer
+
 let events = [
   { description: 'Event 1', date: moment() },
   { description: 'Event 2', date: moment() },
   { description: 'Event 3', date: moment() }
 ]
 
-let renderer
+app.use(require('body-parser').json())
 
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
@@ -36,7 +38,6 @@ app.get('/', (req, res) => {
   }
 })
 
-app.use(require('body-parser').json())
 app.post('/add_event', (req, res) => {
   events.push(req.body)
   res.sendStatus(200)
@@ -55,6 +56,12 @@ if (process.env.NODE_ENV === 'development') {
       reloadServer.reload()
     }
   })
+}
+
+if (process.env.NODE_ENV === 'production') {
+  let bundle = fs.readFileSync('./dist/node.bundle.js', 'utf-8')
+  renderer = require('vue-server-renderer').createBundleRenderer(bundle)
+  app.use('/dist', express.static(path.join(__dirname, 'dist')))
 }
 
 server.listen(process.env.PORT, () => {

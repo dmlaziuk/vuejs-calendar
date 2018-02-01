@@ -11,7 +11,7 @@
 import moment from 'moment-timezone'
 export default {
   computed: {
-    classObject() {
+    classObject () {
       let today = this.day.isSame(moment(), 'day')
       let eventFormActive = this.$store.state.eventFormActive
       let eventFormDate = this.$store.state.eventFormDate
@@ -22,13 +22,13 @@ export default {
         active: eventFormDate.isSame(this.day, 'day') && eventFormActive
       }
     },
-    events() {
+    events () {
       return this.$store.state.events.filter(event => event.date.isSame(this.day, 'day'))
     }
   },
   props: [ 'day' ],
   methods: {
-    captureClick(event) {
+    captureClick (event) {
       this.$store.commit('eventFormPos', { x: event.clientX, y: event.clientY })
       this.$store.commit('eventFormActive', true)
       this.$store.commit('eventFormDate', this.day)

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from 'moment-timezone'
 import Axios from 'axios'
-import { setTimeout } from 'timers'
 
 moment.tz.setDefault('UTC')
 
